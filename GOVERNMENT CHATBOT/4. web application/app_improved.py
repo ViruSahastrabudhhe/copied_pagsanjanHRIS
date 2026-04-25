@@ -29,7 +29,7 @@ print(f"Municipality: {charter_data['municipality']}, {charter_data['province']}
 print(f"Total Services: {charter_data['total_services']}")
 
 # Initialize Groq client
-groq_client = Groq(api_key="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")
+groq_client = Groq(api_key="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")
 
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
 faiss_index = faiss.read_index(os.path.join(MODELS_DIR, 'faiss_index.bin'))

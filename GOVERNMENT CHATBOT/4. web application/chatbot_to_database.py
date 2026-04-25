@@ -19,7 +19,7 @@ DB_CONFIG = {
 }
 
 # Groq client
-groq_client = Groq(api_key="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")
+groq_client = Groq(api_key="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")
 
 def get_db_connection():
     return mysql.connector.connect(**DB_CONFIG)
