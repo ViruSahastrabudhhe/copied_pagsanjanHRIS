@@ -26,7 +26,7 @@ DB_CONFIG = {
 
 # Initialize models
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
-groq_client = Groq(api_key=os.environ.get('GROQ_API_KEY', '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'))
+groq_client = Groq(api_key=os.environ.get('GROQ_API_KEY', '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'))
 
 print(f"✓ Connected to database: {DB_CONFIG['database']}")
 

@@ -13,13 +13,13 @@ CORS(app, resources={r"/chat": {"origins": ["http://localhost:8000", "http://127
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'admin',
+    'password': '',
     'database': 'primehrismagdalena',
     'auth_plugin': 'mysql_native_password'
 }
 
 # Groq client
-groq_client = Groq(api_key="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")
+groq_client = Groq(api_key="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")
 
 def get_db_connection():
     return mysql.connector.connect(**DB_CONFIG)
