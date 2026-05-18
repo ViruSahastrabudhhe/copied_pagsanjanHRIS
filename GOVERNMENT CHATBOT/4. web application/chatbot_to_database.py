@@ -155,9 +155,9 @@ ATTENDANCE & LEAVE POLICIES:
    - Tax withholding
 
 DATABASE TABLES:
-- employees: Employee master data
-- attendances: Daily time records (AM/PM/OT In/Out)
-- accredited_hours_logs: Computed accredited hours with late/undertime
+- employees: Employee master data (first_name, last_name, middle_name)
+- attendances: Daily time records (employee_id, attendance_date, am_in, am_out, pm_in, pm_out)
+- accredited_hours_logs: Computed accredited hours with late/undertime (employee_id, date, late_minutes)
 - leave_types_config: Leave type definitions
 - leave_balances: Employee leave credits by year
 - leave_applications: Leave requests (pending/approved/rejected)
@@ -166,6 +166,12 @@ DATABASE TABLES:
 - deduction_types: Deduction categories
 - employee_deductions: Employee-specific deductions
 - loan_types: Loan type definitions with max amounts and interest rates
+
+IMPORTANT QUERY PATTERNS:
+- For late minutes: Use accredited_hours_logs table which has late_minutes column
+- For employee names: JOIN employees table and use CONCAT(first_name, ' ', last_name) or search in first_name/last_name
+- For dates: Convert natural language dates to 'YYYY-MM-DD' format
+- Example: "May 18, 2026" should be '2026-05-18'
 """
     
     prompt = f"""You are a MySQL expert for the Prime HRIS Magdalena system. Given the database schema and system knowledge below, generate a valid MySQL SELECT query to answer the user's question.
@@ -181,6 +187,9 @@ Rules:
 - If the question cannot be answered from the schema, return: CANNOT_ANSWER
 - All monetary values are in Philippine Peso (PHP), never use dollar signs
 - Use the system knowledge above to understand HR policies and business rules
+- For late minutes queries, use accredited_hours_logs table with late_minutes column
+- For employee name searches, use LIKE with wildcards or CONCAT for full names
+- Convert date strings to MySQL date format 'YYYY-MM-DD'
 
 User Question: {user_question}
 
@@ -196,13 +205,18 @@ SQL Query:"""
 
 def execute_query(sql):
     """Execute SQL and return results"""
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return results
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return results
+    except mysql.connector.Error as e:
+        print(f"SQL Execution Error: {str(e)}")
+        print(f"SQL Query: {sql}")
+        raise
 
 def generate_natural_response(user_question, sql, results):
     """Use Groq to convert SQL results into a conversational response"""
@@ -287,6 +301,11 @@ def chat():
 
         # Generate SQL from question
         sql = generate_sql_query(user_input, schema)
+        
+        # Clean up SQL (remove markdown formatting if present)
+        sql = sql.replace('```sql', '').replace('```', '').strip()
+        
+        print(f"Generated SQL: {sql}")  # Debug logging
 
         if sql == "CANNOT_ANSWER" or not sql.lower().startswith("select"):
             # Check if it's a policy question that doesn't need database query
