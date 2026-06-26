@@ -3,24 +3,18 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AdminUserSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        $user = User::where('email', 'admin@gmail.com')->first();
-        
-        if ($user) {
-            // Update existing user
-        } else {
-            // Create new user
-            User::create([
+        User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
                 'username' => 'System Administrator',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('asdf'),
-            ]);
-        }
+                'password' => bcrypt('your-password-here'),
+            ]
+        );
     }
 }
