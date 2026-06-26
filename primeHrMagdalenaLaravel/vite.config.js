@@ -20,7 +20,7 @@ export default defineConfig({
                 'resources/css/adminPayroll.css',
                 'resources/css/adminPersonnel.css',
                 'resources/css/adminNotification.css',
-                'resources/css/adminLeaveandBenefits.css',
+                'resources/css/adminLeaveAndBenefits.css',
                 'resources/css/joborder.css',
                 'resources/css/permanent.css',
                 'resources/js/app.js',
