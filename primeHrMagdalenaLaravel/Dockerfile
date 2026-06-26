@@ -67,5 +67,5 @@ RUN mkdir -p /var/www/html/storage/framework/cache \
 # Expose web port for Render
 EXPOSE 80
 
-# Start Apache server in foreground
-CMD ["apache2-foreground"]
+# Run migrations then start Apache
+CMD php artisan migrate --force && apache2-foreground
