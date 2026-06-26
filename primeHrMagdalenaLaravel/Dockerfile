@@ -1,7 +1,7 @@
 # =====================================================================
 # STAGE 1: Build Frontend Assets (React/Vite)
 # =====================================================================
-FROM node:20-alpine AS asset-builder
+FROM node:22.14.0 AS asset-builder
 WORKDIR /app
 
 # Copy package files and install Node modules
