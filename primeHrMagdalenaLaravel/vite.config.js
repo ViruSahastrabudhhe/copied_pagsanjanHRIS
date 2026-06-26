@@ -8,7 +8,22 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/*.css',
+                'resources/css/app.css',
+                'resources/css/admin.css',
+                'resources/css/adminDashboard.css',
+                'resources/css/adminAttendance.css',
+                'resources/css/adminRecruitment.css',
+                'resources/css/adminTraining.css',
+                'resources/css/adminChatbot.css',
+                'resources/css/adminPerformance.css',
+                'resources/css/adminDepartment.css',
+                'resources/css/employeeWizard.css',
+                'resources/css/adminPersonnel.css',
+                'resources/css/adminNotification.css',
+                'resources/css/adminPayroll.css',
+                'resources/css/adminLeaveandBenefits.css',
+                'resources/css/joborder.css',
+                'resources/css/permanent.css',
                 'resources/js/app.js',
                 'resources/js/employeeWizard.js',
                 'resources/js/adminPersonnel.js',
