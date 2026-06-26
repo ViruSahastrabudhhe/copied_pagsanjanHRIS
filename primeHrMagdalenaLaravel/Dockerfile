@@ -15,7 +15,7 @@ RUN npm run build
 # =====================================================================
 # STAGE 2: Production PHP Application Server
 # =====================================================================
-FROM php:8.3-apache
+FROM php:8.4-apache
 
 # Install required system libraries for Laravel
 RUN apt-get update && apt-get install -y \
