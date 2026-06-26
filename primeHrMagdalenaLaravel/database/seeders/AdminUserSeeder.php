@@ -14,10 +14,6 @@ class AdminUserSeeder extends Seeder
         
         if ($user) {
             // Update existing user
-            $user->update([
-                'username' => 'System Administrator',
-                'password' => Hash::make('asdf'),
-            ]);
         } else {
             // Create new user
             User::create([
