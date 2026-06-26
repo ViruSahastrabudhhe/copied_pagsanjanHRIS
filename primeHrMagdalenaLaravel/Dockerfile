@@ -68,4 +68,4 @@ RUN mkdir -p /var/www/html/storage/framework/cache \
 EXPOSE 80
 
 # Run migrations then start Apache
-CMD php artisan migrate --force && apache2-foreground
+CMD php artisan migrate --force && php artisan db:seed --force && apache2-foreground
