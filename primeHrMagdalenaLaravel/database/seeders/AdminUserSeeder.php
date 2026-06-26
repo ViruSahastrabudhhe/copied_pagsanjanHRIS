@@ -10,12 +10,21 @@ class AdminUserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::updateOrCreate(
-            ['email' => 'admin@gmail.com'],
-            [
+        $user = User::where('email', 'admin@gmail.com')->first();
+        
+        if ($user) {
+            // Update existing user
+            $user->update([
                 'username' => 'System Administrator',
                 'password' => Hash::make('asdf'),
-            ]
-        );
+            ]);
+        } else {
+            // Create new user
+            User::create([
+                'username' => 'System Administrator',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('asdf'),
+            ]);
+        }
     }
 }
