@@ -15,7 +15,6 @@ return new class extends Migration
             $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending')->after('certificate_path');
             $table->text('rejected_reason')->nullable()->after('status');
             $table->timestamp('verified_at')->nullable()->after('rejected_reason');
-            $table->timestamps();
         });
     }
 
@@ -29,8 +28,6 @@ return new class extends Migration
                 'status',
                 'rejected_reason',
                 'verified_at',
-                'created_at',
-                'updated_at'
             ]);
         });
     }

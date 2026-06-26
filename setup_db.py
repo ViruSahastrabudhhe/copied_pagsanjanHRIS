@@ -1,14 +1,14 @@
-import subprocess
 import os
+import subprocess
 import sys
 
 HOST = "localhost"
 USER = "root"
-PASSWORD = "admin"
-DATABASE = "primehrismagdalena"
+PASSWORD = "root"
+DATABASE = "hris"
 
 SQL_FOLDER = os.path.join(os.path.dirname(__file__), "database")
-MYSQL_BIN = r"C:\Program Files\MySQL\MySQL Server 8.4\bin\mysql.exe"
+MYSQL_BIN = r"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe"
 
 ORDER = [
     "primehrismagdalena_migrations.sql",
@@ -59,7 +59,7 @@ def mysql_cmd(sql, db=None):
     cmd = [MYSQL_BIN, f"-h{HOST}", f"-u{USER}", f"-p{PASSWORD}", "--force"]
     if db:
         cmd.append(db)
-    return subprocess.run(cmd, input=sql.encode("utf-8"), capture_output=True)
+    return subprocess.run(cmd, input=sql.encode("utf-8"), capture_output=True, shell=True)
 
 def run():
     r = mysql_cmd(f"CREATE DATABASE IF NOT EXISTS `{DATABASE}`;")
