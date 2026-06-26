@@ -32,15 +32,12 @@ export default defineConfig({
             ],
             refresh: true,
         }),
+        react(),
         tailwindcss(),
     ],
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },
-    },
-    build: {
-        outDir: 'public/build',
-        manifest: true,
     },
 });

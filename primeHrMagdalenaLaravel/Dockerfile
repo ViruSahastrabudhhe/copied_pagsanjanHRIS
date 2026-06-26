@@ -41,17 +41,13 @@ RUN a2enmod rewrite
 
 WORKDIR /var/www/html
 
-# ✅ STEP 1: Copy built assets FIRST (before anything else)
-COPY --from=asset-builder /app/public/build ./public/build
-
-# DEBUG - Verify assets were copied
-RUN echo "=== ASSETS COPIED ===" && ls -la /var/www/html/public/build/
-RUN echo "=== MANIFEST ===" && cat /var/www/html/public/build/manifest.json | head -20 || echo "MANIFEST MISSING!"
-
-# ✅ STEP 2: Copy the rest of the application (this will NOT overwrite public/build)
+# Copy Laravel application
 COPY . .
 
-# ✅ STEP 3: Install PHP dependencies
+# Copy compiled Vite assets LAST
+COPY --from=asset-builder /app/public/build ./public/build
+
+# Install dependencies
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Set permissions
