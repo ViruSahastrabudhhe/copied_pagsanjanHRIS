@@ -67,6 +67,9 @@ export default defineConfig({
                 'employeeWizard': 'resources/js/employeeWizard.js',
                 'adminPersonnel': 'resources/js/adminPersonnel.js',
                 'personnelTopbar': 'resources/js/personnelTopbar.js',
+                'adminAttendance': 'resources/js/adminAttendance.js',
+                'adminLeaveAndBenefits': 'resources/js/adminLeaveAndBenefits.js',
+                'adminPersonnel': 'resources/js/adminPersonnel.js',
             }
         }
     }
